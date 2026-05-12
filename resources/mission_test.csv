@@ -1,0 +1,6 @@
+id,titre,depart,arrivee,distance,type,statut
+M001,Livraison Paris,Paris,Lyon,465,COURTE,EN_ATTENTE
+M002,Transport Marseille,Lyon,Marseille,315,COURTE,EN_ATTENTE
+M003,Convoi Bordeaux,Paris,Bordeaux,580,LONGUE,EN_ATTENTE
+M004,Livraison Nantes,Bordeaux,Nantes,330,COURTE,EN_COURS
+M005,Transport Lille,Paris,Lille,225,LONGUE,TERMINEE
