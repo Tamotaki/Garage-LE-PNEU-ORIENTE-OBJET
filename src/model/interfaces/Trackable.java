@@ -1,3 +1,5 @@
 package model.interfaces;
 
-public interface Trackable {}
+public interface Trackable {
+    String getItineraire();
+}
