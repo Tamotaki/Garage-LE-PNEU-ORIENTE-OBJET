@@ -1,66 +1,63 @@
 package controller;
 
+import model.Chauffeur;
+import model.Mission;
 import model.Vehicule;
+import util.CsvChauffeurLoader;
+import util.CsvMissionLoader;
 import util.CsvVehiculeLoader;
-import util.StatistiquesVehicules;
 import view.MainFrame;
 
 import javax.swing.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
+/**
+ * Classe principale : Intégration finale.
+ */
 public class Main {
+
     public static void main(String[] args) {
-        System.out.println("=== Chargement des véhicules ===\n");
+        System.out.println("Garage LE PNEU : Lancement de l'application");
 
-        List<Vehicule> vehicules = CsvVehiculeLoader.charger("resources/vehicules_test.csv");
+        // Initialisation du contrôleur central
+        GarageController controller = new GarageController();
 
-        System.out.println(vehicules.size() + " véhicule(s) chargé(s) :\n");
+        // Chargement des données via les loaders
+        try {
+            System.out.println("Chargement des données...");
+            
+            // Chargement des véhicules
+            List<Vehicule> vehicules = CsvVehiculeLoader.charger("resources/vehicules_test.csv");
+            vehicules.forEach(controller::ajouterVehicule);
+            System.out.println("- " + vehicules.size() + " véhicules chargés.");
 
-        //Version 1
-        //for (Vehicule v : vehicules) {
-            //System.out.println(v);
+            // Chargement des chauffeurs
+            CsvChauffeurLoader chauffeurLoader = new CsvChauffeurLoader();
+            List<Chauffeur> chauffeurs = chauffeurLoader.charger("resources/chauffeurs_test.csv");
+            chauffeurs.forEach(controller::ajouterChauffeur);
+            System.out.println("- " + chauffeurs.size() + " chauffeurs chargés.");
 
-        //Version 2
-        vehicules.forEach(System.out::println);
+            // Chargement des missions
+            CsvMissionLoader missionLoader = new CsvMissionLoader();
+            List<Mission> missions = missionLoader.charger("resources/mission_test.csv");
+            missions.forEach(controller::ajouterMission);
+            System.out.println("- " + missions.size() + " missions chargées.");
 
-        // Statistiques
-        System.out.println("\n=== Statistiques véhicules ===");
-
-        // Disponibles
-        System.out.println("\n-- Véhicules disponibles --");
-        StatistiquesVehicules.getDisponibles(vehicules).forEach(System.out::println);
-
-        // En maintenance
-        System.out.println("\n-- Véhicules en maintenance --");
-        StatistiquesVehicules.getEnMaintenance(vehicules).forEach(System.out::println);
-
-        // Kilométrage moyen
-        System.out.printf("%n-- Kilométrage moyen : %.1f km --%n",
-                StatistiquesVehicules.getKilometrageMoyen(vehicules));
-
-        // Véhicule le plus kilométré
-        System.out.println("\n-- Véhicule le plus kilométré --");
-        Optional<Vehicule> plusKilometre = StatistiquesVehicules.getPlusKilometre(vehicules);
-        plusKilometre.ifPresent(System.out::println);
-
-        // Classement par kilométrage décroissant
-        System.out.println("\n-- Classement par kilométrage (décroissant) --");
-        StatistiquesVehicules.classerParKilometrage(vehicules)
-                .forEach(v -> System.out.printf("  %s : %.0f km%n",
-                        v.getImmatriculation(), v.getKilometrage()));
-
-        // Comptage par type
-        System.out.println("\n-- Nombre de véhicules par type --");
-        for (Map.Entry<String, Long> entry : StatistiquesVehicules.compterParType(vehicules).entrySet()) {
-            System.out.printf("  %s : %d véhicule(s)%n", entry.getKey(), entry.getValue());
-
-            // Interface Swing (MR10)
-            SwingUtilities.invokeLater(() -> {
-                MainFrame frame = new MainFrame();
-                frame.setVisible(true);
-            });
+        } catch (Exception e) {
+            // Gestion des erreurs de chargement initial
+            System.err.println("Erreur lors du chargement des données : " + e.getMessage());
         }
+
+        // Lancement de l'interface graphique
+        SwingUtilities.invokeLater(() -> {
+            try {
+                // Création et affichage de la fenêtre principale injectée avec le contrôleur
+                MainFrame frame = new MainFrame(controller);
+                frame.setVisible(true);
+                System.out.println("Application prête");
+            } catch (Exception e) {
+                System.err.println("Erreur au lancement de l'interface : " + e.getMessage());
+            }
+        });
     }
 }
