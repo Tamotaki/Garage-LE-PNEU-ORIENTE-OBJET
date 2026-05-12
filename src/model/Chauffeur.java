@@ -1,17 +1,16 @@
 package model;
 
-/**
- * Modèle représentant un chauffeur.
- */
+import javax.print.DocFlavor;
+
 public class Chauffeur extends Entite {
 
     private String nom;
     private String prenom;
-    private String numeroDePermis;
+    private String  numeroDePermis;
     private TypePermis typePermis;
     private boolean disponible;
 
-    public Chauffeur(String id, String nom, String prenom, String numeroDePermis, TypePermis typePermis) {
+    public Chauffeur(String id, String nom, String prenom, String numeroDePermis, TypePermis typePermis ) {
         super(id);
         this.nom = nom;
         this.prenom = prenom;
@@ -20,22 +19,36 @@ public class Chauffeur extends Entite {
         this.disponible = true;
     }
 
+    //Vérification si chauffeur a le permis
     public boolean aLePourPermis(TypePermis permisRequis) {
-        return this.typePermis != null && this.typePermis.couvre(permisRequis);
+        return this.typePermis.couvre(permisRequis);
     }
 
-    public String getNom() { return nom; }
-    public String getPrenom() { return prenom; }
-    public String getNumeroDPermis() { return numeroDePermis; }
-    public TypePermis getTypePermis() { return typePermis; }
-    public boolean isDisponible() { return disponible; }
+    //Getters
+    public String getNom() {
+        return nom; }
+    public String getPrenom() {
+        return prenom; }
+    public String getNumeroDPermis() {
+        return numeroDePermis; }
+    public TypePermis getTypePermis() {
+        return typePermis; }
+    public boolean isDisponible() {
+        return disponible; }
 
-    public void setDisponible(boolean disponible) { this.disponible = disponible; }
+    //Setters
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible; }
 
     @Override
     public String toString() {
-        return String.format("Chauffeur[%s] %s %s | Permis: %s (%s) | %s",
-                getId(), prenom, nom, typePermis, numeroDePermis,
-                disponible ? "Disponible" : "Indisponible");
+        return String.format(
+                "Chauffeur[%s] %s %s | Permis %s (%s) | %s",
+                getId(),
+                prenom, nom,
+                typePermis,
+                numeroDePermis,
+                disponible ? "Disponible" : "Indisponible"
+        );
     }
 }

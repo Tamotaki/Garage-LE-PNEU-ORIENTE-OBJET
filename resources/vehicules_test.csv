@@ -1,0 +1,7 @@
+id,type,immatriculation,marque,modele,kilometrage,etat,specialisation
+V001,Léger,AB-123-CD,Renault,Clio,45000,DISPONIBLE,
+V002,Léger,EF-456-GH,Peugeot,208,82000,EN_MISSION,
+V003,Lourd,IJ-789-KL,Volvo,FH16,210000,DISPONIBLE,
+V004,Lourd,MN-012-OP,Mercedes,Actros,305000,EN_MAINTENANCE,
+V005,Spécial,QR-345-ST,MAN,TGX,98000,DISPONIBLE,Dépanneuse
+V006,Léger,UV-678-WX,Citroën,C3,12000,INDISPONIBLE
