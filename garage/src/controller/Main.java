@@ -10,7 +10,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("=== Chargement des chauffeurs ===");
+        //Test de CsvChauffeurLoader pour charger et afficher les chauffeurs du CSV
+        System.out.println("Chargement des chauffeurs");
         CsvChauffeurLoader chauffeurLoader = new CsvChauffeurLoader();
         List<Chauffeur> chauffeurs = chauffeurLoader.charger("resources/chauffeurs_test.csv");
         for (Chauffeur c : chauffeurs) {
@@ -18,7 +19,9 @@ public class Main {
         }
 
         System.out.println();
-        System.out.println("=== Chargement des missions ===");
+
+        //Test de CsvMissionLoader pour charger et afficher les missions du CSV
+        System.out.println("Chargement des missions");
         CsvMissionLoader missionLoader = new CsvMissionLoader();
         List<Mission> missions = missionLoader.charger("resources/missions_test.csv");
         for (Mission m : missions) {
