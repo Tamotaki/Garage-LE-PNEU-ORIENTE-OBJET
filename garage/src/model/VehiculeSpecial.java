@@ -28,7 +28,7 @@ public class VehiculeSpecial extends Vehicule {
         return specialisation;
     }
 
-    // Méthode toString enrichie aec la spécialisation
+    // Méthode toString enrichie avec la spécialisation
     @Override
     public String toString() {
         return super.toString() + " | Spécialité: " + specialisation;
