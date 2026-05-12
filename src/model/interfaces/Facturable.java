@@ -1,3 +1,5 @@
 package model.interfaces;
 
-public interface Facturable {}
+public interface Facturable {
+    double calculerCout();
+}
