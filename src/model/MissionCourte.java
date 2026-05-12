@@ -19,4 +19,3 @@ public class MissionCourte extends Mission implements Facturable {
         return "[COURTE] " + super.toString() + String.format(" | Coût: %.2f€", calculerCout());
     }
 }
-}

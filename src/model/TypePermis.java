@@ -8,4 +8,5 @@ public enum TypePermis {
         if (requis == C) return this == C || this == CE;
         if (requis == CE) return this == CE;
         return false;
+    }
 }
