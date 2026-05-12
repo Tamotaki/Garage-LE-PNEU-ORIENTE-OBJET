@@ -3,7 +3,9 @@ package controller;
 import model.Vehicule;
 import util.CsvVehiculeLoader;
 import util.StatistiquesVehicules;
+import view.MainFrame;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -54,6 +56,11 @@ public class Main {
         for (Map.Entry<String, Long> entry : StatistiquesVehicules.compterParType(vehicules).entrySet()) {
             System.out.printf("  %s : %d véhicule(s)%n", entry.getKey(), entry.getValue());
 
+            // Interface Swing (MR10)
+            SwingUtilities.invokeLater(() -> {
+                MainFrame frame = new MainFrame();
+                frame.setVisible(true);
+            });
         }
     }
 }
