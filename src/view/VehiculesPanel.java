@@ -2,6 +2,7 @@ package view;
 
 import model.EtatVehicule;
 import model.Vehicule;
+import controller.GarageController;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,13 +19,10 @@ public class VehiculesPanel extends JPanel {
     private JButton btnMettreEnMaintenance;
     private JButton btnSortirMaintenance;
 
+    private GarageController controller;
 
-    // PROVISOIRE A CHANGER : remplacer Object par GarageController quand MR07 sera fait
-    private Object controller;
-
-    // PROVISOIRE A CHANGER : remplacer Object par GarageController quand MR07 sera fait
-    public VehiculesPanel(Object controller) {
-        this.controller = controller; // PROVISOIRE A CHANGER
+    public VehiculesPanel(GarageController controller) {
+        this.controller = controller;
 
         setLayout(new BorderLayout());
         initialiserTableau();
@@ -108,8 +106,7 @@ public class VehiculesPanel extends JPanel {
     // Méthode appelée quand on clique sur "Rafraîchir"
     private void rafraichir() {
         try {
-            // PROVISOIRE A CHANGER : remplacer par controller.getVehicules() quand MR07 sera fait
-            System.out.println("[VehiculesPanel] Rafraîchir appelé (PROVISOIRE A CHANGER : connecter au GarageController MR07)");
+            afficherVehicules(controller.getVehicules());
         } catch (Exception e) {
             afficherErreur("Erreur lors du rafraîchissement : " + e.getMessage());
         }
@@ -127,9 +124,8 @@ public class VehiculesPanel extends JPanel {
         String idVehicule = (String) modeleTableau.getValueAt(ligneSelectionnee, 0);
 
         try {
-            // PROVISOIRE A CHANGER
-            System.out.println("[VehiculesPanel] Mise en maintenance demandée pour " + idVehicule
-                    + " (PROVISOIRE A CHANGER : connecter au GarageController MR07)");
+            controller.mettreEnMaintenance(idVehicule);
+            rafraichir();
         } catch (Exception e) {
             afficherErreur("Erreur : " + e.getMessage());
         }
@@ -146,9 +142,8 @@ public class VehiculesPanel extends JPanel {
         String idVehicule = (String) modeleTableau.getValueAt(ligneSelectionnee, 0);
 
         try {
-            // PROVISOIRE A CHANGER
-            System.out.println("[VehiculesPanel] Sortie de maintenance demandée pour " + idVehicule
-                    + " (PROVISOIRE A CHANGER : connecter au GarageController MR07)");
+            controller.sortirDeMaintenance(idVehicule);
+            rafraichir();
         } catch (Exception e) {
             afficherErreur("Erreur : " + e.getMessage());
         }
